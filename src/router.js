@@ -1,7 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Turno from "./components/turno/Turno.vue"
+import Inicio from "./components/turno/Inicio.vue"
+
+const routes = [
+  {
+    path:'/',
+    component: Inicio,
+    name: 'Inicio'
+  }
+];
 
 export const router = createRouter({
   history: createWebHistory(),
-  routes: [{ path: "/", component: Turno, name: 'Turno' }]
+  routes,
 });
