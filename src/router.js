@@ -1,11 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Inicio from "./components/turno/Inicio.vue"
+import Inscribir from "./components/turno/Inscribir.vue";
+import ConsultarCancelar from "./components/turno/ConsultarCancelar.vue"
 
 const routes = [
   {
     path:'/',
-    component: Inicio,
-    name: 'Inicio'
+    component: Inscribir,
+    name: 'Inscribir'
+  },
+  {
+    path:'/consultar',
+    component: ConsultarCancelar,
+    name: 'Consultar'
   }
 ];
 
