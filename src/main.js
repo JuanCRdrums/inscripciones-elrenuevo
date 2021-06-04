@@ -14,6 +14,7 @@ import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
 import ScrollTop from 'primevue/scrolltop';
 import ScrollPanel from 'primevue/scrollpanel';
+import InputSwitch from 'primevue/inputswitch';
 import 'primeflex/primeflex.css';
 import 'primevue/resources/themes/bootstrap4-light-blue/theme.css';     
 import 'primevue/resources/primevue.min.css';     
@@ -91,6 +92,7 @@ app.component('Button', Button);
 app.component('Dialog', Dialog);
 app.component('ScrollTop', ScrollTop);
 app.component('ScrollPanel', ScrollPanel);
+app.component('InputSwitch', InputSwitch);
 app.directive('tooltip', Tooltip);
 
 app.mount('#app');
