@@ -103,8 +103,9 @@
                 <i class="pi pi-check-circle" :style="{fontSize: '5rem', color: 'var(--green-500)' }"></i>
                 <h5>¡Registro exitoso</h5>
                 <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
-                    Gracias por inscribirte, {{ state.Nombre }}. Has quedado registrado para el servicio de las {{ labelServicio(state.Servicio) }}.
+                    Gracias por inscribirte, {{ state.Nombre }}. Has quedado registrado/a para el servicio de las {{ labelServicio(state.Servicio) }}.
                     Recuerda llegar 15 minutos antes de la hora de inicio para realizar el registro y el proceso de desinfección.
+                    Te pedimos que, en caso de no poder asistir, canceles tu inscripción como mínimo con 2 horas de anticipación.
                 </p>
             </div>
             <template #footer>

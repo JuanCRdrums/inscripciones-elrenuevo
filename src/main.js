@@ -15,6 +15,9 @@ import Dialog from 'primevue/dialog';
 import ScrollTop from 'primevue/scrolltop';
 import ScrollPanel from 'primevue/scrollpanel';
 import InputSwitch from 'primevue/inputswitch';
+import ConfirmDialog from 'primevue/confirmdialog';
+import ConfirmationService from 'primevue/confirmationservice';
+import ToastService from 'primevue/toastservice';
 import 'primeflex/primeflex.css';
 import 'primevue/resources/themes/bootstrap4-light-blue/theme.css';     
 import 'primevue/resources/primevue.min.css';     
@@ -77,7 +80,8 @@ app.use(PrimeVue,{
         emptyMessage: 'Sin opciones disponibles'
     },
 });
-
+app.use(ConfirmationService);
+app.use(ToastService);
 
 
 app.component('Card', Card);
@@ -93,6 +97,7 @@ app.component('Dialog', Dialog);
 app.component('ScrollTop', ScrollTop);
 app.component('ScrollPanel', ScrollPanel);
 app.component('InputSwitch', InputSwitch);
+app.component('ConfirmDialog', ConfirmDialog);
 app.directive('tooltip', Tooltip);
 
 app.mount('#app');
