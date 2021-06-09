@@ -1,5 +1,7 @@
 <template>
     <div>
+        <Toast />
+        <ConfirmDialog></ConfirmDialog>
         <div class="p-grid">
             <div class="p-field p-col-12 p-lg-6 p-md-6 " style="margin: auto">
                 <label for="Identificacion">Ingresa tu número de identificación para consultar tu inscripción:</label>
@@ -21,10 +23,12 @@
             </p>
             <div class="p-grid">
                 <div class="p-field p-col-12 p-lg-6 p-md-6 " style="margin: auto">
-                    <Button label="Cancelar turno" class="p-button-danger" @click="confirmar()"/>
+                    <Button label="Cancelar inscripcion" class="p-button-danger" @click="confirmar()"/>
                 </div>
             </div>
         </div>
+
+        
     </div>
 </template>
 
@@ -43,26 +47,28 @@ export default defineComponent( {
             displayInfo.value = true;
         }
 
+        const Identificacion = ref('');
+
         const confirm = useConfirm();
         const toast = useToast();
 
         const confirmar = () => {
             confirm.require({
-                message: '¿Está seguro de que desea cancelar la inscripción?',
+                message: '¿Estás seguro de que deseas cancelar la inscripción?',
                 header: 'Cancelación',
                 icon: 'pi pi-info-circle',
                 acceptClass: 'p-button-danger',
                 accept: () => {
-                    toast.add({severity:'info', summary:'Confirmed', detail:'Inscripción cancelada', life: 3000});
+                    toast.add({severity:'info', detail:'Inscripción cancelada', life: 3000});
                     displayInfo.value = false;
                 },
                 reject: () => {
-                    toast.add({severity:'error', summary:'Rejected', detail:'No se ha cancelado la inscripción', life: 3000});
+                    toast.add({severity:'error', detail:'No se ha cancelado la inscripción', life: 3000});
                 }
             });
         }
 
-        return {displayInfo, consultar, confirm, toast, confirmar};
+        return {displayInfo, consultar, confirmar, Identificacion};
     }
 });
 </script>

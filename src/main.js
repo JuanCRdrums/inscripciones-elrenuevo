@@ -18,6 +18,7 @@ import InputSwitch from 'primevue/inputswitch';
 import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
+import Toast from 'primevue/toast';
 import 'primeflex/primeflex.css';
 import 'primevue/resources/themes/bootstrap4-light-blue/theme.css';     
 import 'primevue/resources/primevue.min.css';     
@@ -98,6 +99,7 @@ app.component('ScrollTop', ScrollTop);
 app.component('ScrollPanel', ScrollPanel);
 app.component('InputSwitch', InputSwitch);
 app.component('ConfirmDialog', ConfirmDialog);
+app.component('Toast', Toast);
 app.directive('tooltip', Tooltip);
 
 app.mount('#app');
