@@ -3,7 +3,7 @@
     <div class="p-grid">
             <div class="p-field p-col-12 p-lg-6 p-md-6 ">
                 <span class="p-float-label">
-                    <InputText id="Identificacion" type="text" v-model="v$.Identificacion.$model"></InputText>
+                    <InputText id="Identificacion" type="text" v-model="v$.Identificacion.$model" @change="buscarDatos(v$.Identificacion.$model)"></InputText>
                     <label for="Identificacion" :class="{'p-error':v$.Identificacion.$invalid && submitted}">Número de identificación</label>
                 </span>
                 <small v-if="(v$.Identificacion.$invalid && submitted) || v$.Identificacion.$pending.$response" class="p-error">Por favor ingresa tu número de identificación</small>
@@ -149,6 +149,9 @@ export default {
         PoliticaDatos
     },
     setup(){
+
+
+
         const displayPolitica = ref(false);
         const optionsSiNo = ref([
             { label: 'Sí', value: 1},
@@ -177,7 +180,7 @@ export default {
             Nombre: '',
             Telefono: '',
             Email: '',
-            Nacimiento: '',
+            Nacimiento: null,
             Servicio: null,
             Politica: null,
         });
@@ -204,6 +207,24 @@ export default {
         };
         const ErrorMessage = ref('');
 
+        const buscarDatos = (cedula) => {
+            let body = {
+                'cedula': cedula,
+            }
+            axios.post(settings.API_URL + 'inscripciones/datosAsistente', body).then(response => {
+                resetForm();
+                console.log(response);
+                state.Identificacion = response.data[0].cedula;
+                state.Nombre = response.data[0].nombre;
+                state.Telefono = response.data[0].telefono;
+                state.Email = response.data[0].email;
+                state.Nacimiento = new Date(response.data[0].nacimiento);
+            }).catch(err => {
+                err;
+                console.log(err);
+            });
+        };
+
 
 
 
@@ -227,7 +248,6 @@ export default {
                 'covid4': Covid4.value,
             };
             axios.post(settings.API_URL + 'inscripciones/store', body).then(response => {
-                console.log(response);
                 if(response.data.error == 1){
                     ErrorMessage.value = response.data.msg;
                     openErrorMessage();
@@ -255,7 +275,7 @@ export default {
             state.Telefono = '';
             state.Email = '';
             state.Nacimiento = '';
-            state.Servicio = 0;
+            state.Servicio = null;
             state.Politica = null;
         };
 
@@ -273,7 +293,7 @@ export default {
         return {
             Servicios, displayPolitica, openPolitica, closePolitica, Covid1, optionsSiNo, Covid2, Covid3, Covid4, state,
             v$, handleSubmit, submitted, showMessage, toggleDialog, resetForm, labelServicio, showErrorMessage, openErrorMessage,
-            closeErrorMessage, ErrorMessage
+            closeErrorMessage, ErrorMessage, buscarDatos
         };
     },
 }
