@@ -101,7 +101,7 @@
     <Dialog v-model:visible="showMessage" :breakpoints="{ '960px': '80vw' }" :style="{ width: '30vw' }" position="top">
             <div class="p-d-flex p-ai-center p-dir-col p-pt-6 p-px-3">
                 <i class="pi pi-check-circle" :style="{fontSize: '5rem', color: 'var(--green-500)' }"></i>
-                <h5>¡Registro exitoso</h5>
+                <h5>¡Registro exitoso!</h5>
                 <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
                     Gracias por inscribirte, {{ state.Nombre }}. Has quedado registrado/a para el servicio de las {{ labelServicio(state.Servicio) }}.
                     Recuerda llegar 15 minutos antes de la hora de inicio para realizar el registro y el proceso de desinfección.
@@ -114,6 +114,22 @@
                 </div>
             </template>
         </Dialog>
+
+
+    <Dialog v-model:visible="showErrorMessage" :breakpoints="{ '960px': '80vw' }" :style="{ width: '30vw' }" position="top">
+        <div class="p-d-flex p-ai-center p-dir-col p-pt-6 p-px-3">
+            <i class="pi pi-times-circle" :style="{fontSize: '5rem', color: 'red' }"></i>
+            <h5>Error</h5>
+            <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
+                {{ ErrorMessage }}
+            </p>
+        </div>
+        <template #footer>
+            <div class="p-d-flex p-jc-center">
+                <Button label="OK" @click="closeErrorMessage" class="p-button-text" />
+            </div>
+        </template>
+    </Dialog>
 </template>
 
 
@@ -124,6 +140,8 @@ import { provide, reactive, ref } from 'vue';
 import { email, required } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 import PoliticaDatos from './PoliticaDatos';
+import axios from "axios";
+import {settings} from "@/settings";
 
 export default {
 
@@ -176,15 +194,51 @@ export default {
 
         const submitted = ref(false);
         const showMessage = ref(false);
+        const showErrorMessage = ref(false);
+        const openErrorMessage = () => {
+            showErrorMessage.value = 1;
+        };
+        const closeErrorMessage = () => {
+            showErrorMessage.value = 0;
+            resetForm();
+        };
+        const ErrorMessage = ref('');
+
+
+
 
         const handleSubmit = (isFormValid) => {
             submitted.value = true;
-
+            
             if (!isFormValid) {
                 return;
             }
 
-            toggleDialog();
+            let body = {
+                'cedula': state.Identificacion,
+                'nombre': state.Nombre,
+                'telefono': state.Telefono,
+                'email': state.Email,
+                'nacimiento': state.Nacimiento,
+                'servicio': state.Servicio,
+                'covid1': Covid1.value,
+                'covid2': Covid2.value,
+                'covid3': Covid3.value,
+                'covid4': Covid4.value,
+            };
+            axios.post(settings.API_URL + 'inscripciones/store', body).then(response => {
+                console.log(response);
+                if(response.data.error == 1){
+                    ErrorMessage.value = response.data.msg;
+                    openErrorMessage();
+                }
+                else{
+                    toggleDialog();
+                }
+            }).catch(err => {
+                err;
+                console.log(err);
+            });
         }
 
         const toggleDialog = () => {
@@ -218,7 +272,8 @@ export default {
 
         return {
             Servicios, displayPolitica, openPolitica, closePolitica, Covid1, optionsSiNo, Covid2, Covid3, Covid4, state,
-            v$, handleSubmit, submitted, showMessage, toggleDialog, resetForm, labelServicio
+            v$, handleSubmit, submitted, showMessage, toggleDialog, resetForm, labelServicio, showErrorMessage, openErrorMessage,
+            closeErrorMessage, ErrorMessage
         };
     },
 }
