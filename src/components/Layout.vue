@@ -17,11 +17,21 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue';
+import axios from "axios";
+import {settings} from "@/settings";
 export default {
 
   setup(){
-    const Fecha = ref('6 de junio');
+    const Fecha = ref('');
+    onMounted(() => {
+      axios.get(settings.API_URL + 'inscripciones/fechaActiva').then(response => {
+                Fecha.value = response.data;
+            }).catch(err => {
+                err;
+                console.log(err);
+            });
+    })
     return {Fecha};
   }
 }
