@@ -17,7 +17,7 @@
         <br>
         <div v-if="displayInfo">
             <p>
-                Persona, tu turno está registrado para el servicio de las 8:30 am. Recuerda llegar 15 minutos antes de la hora de 
+                {{Nombre}}, tu inscripción está registrada para el servicio de las {{ Servicio }}. Recuerda llegar 15 minutos antes de la hora de 
                 inicio para realizar el registro y el proceso de desinfección.
                 Te pedimos que, en caso de no poder asistir, canceles tu inscripción como mínimo con 2 horas de anticipación. 
             </p>
@@ -26,6 +26,12 @@
                     <Button label="Cancelar inscripcion" class="p-button-danger" @click="confirmar()"/>
                 </div>
             </div>
+        </div>
+
+        <div v-if="displayNoInfo">
+            <p>
+                No tienes una inscripción registrada para este domingo. Nos encantaría verte, así que te invitamos a que te inscribas.
+            </p>
         </div>
 
         
@@ -37,20 +43,52 @@
 import { defineComponent, ref } from 'vue';
 import { useConfirm } from "primevue/useconfirm";
 import { useToast } from "primevue/usetoast";
+import axios from "axios";
+import {settings} from "@/settings";
 
 export default defineComponent( {
 
     setup(){
 
         const displayInfo = ref(false);
+        const displayNoInfo = ref(false);
         const consultar = () => {
-            displayInfo.value = true;
+            let body = {
+                'cedula': Identificacion.value
+            }
+            axios.post(settings.API_URL + 'inscripciones/consultar', body).then(response => {
+                if(response.data[0]){
+                    Nombre.value = response.data[0].infoasistente.nombre;
+                    Servicio.value = Servicios.value[response.data[0].servicio - 1];
+                    IdInscripcion.value = response.data[0].id;
+                    displayInfo.value = true;
+                    displayNoInfo.value = false;
+                }
+                else
+                {
+                    displayNoInfo.value = true;
+                    displayInfo.value = false;
+                }
+            }).catch(err => {
+                err;
+                console.log(err);
+            });
+            
         }
 
         const Identificacion = ref('');
+        const Nombre = ref('');
+        const IdInscripcion = ref(0);
+        
 
         const confirm = useConfirm();
         const toast = useToast();
+
+        const Servicios = ref([
+            '8:15 am', '10:30 am'
+        ]);
+        const Servicio = ref('');
+
 
         const confirmar = () => {
             confirm.require({
@@ -59,16 +97,24 @@ export default defineComponent( {
                 icon: 'pi pi-info-circle',
                 acceptClass: 'p-button-danger',
                 accept: () => {
-                    toast.add({severity:'info', detail:'Inscripción cancelada', life: 3000});
-                    displayInfo.value = false;
+                    let body = {
+                        'id': IdInscripcion.value
+                    }
+                    axios.post(settings.API_URL + 'inscripciones/cancelar', body).then(() => {
+                        toast.add({severity:'info', detail:'Tu inscripción se ha cancelado correctamente', life: 3000});
+                        displayInfo.value = false;
+                    }).catch(err => {
+                        err;
+                        console.log(err);
+                    });
                 },
                 reject: () => {
-                    toast.add({severity:'error', detail:'No se ha cancelado la inscripción', life: 3000});
+                    toast.add({severity:'error', detail:'No se ha cancelado tu inscripción', life: 3000});
                 }
             });
         }
 
-        return {displayInfo, consultar, confirmar, Identificacion};
+        return {displayInfo, consultar, confirmar, Identificacion, Nombre, Servicios, Servicio, displayNoInfo, IdInscripcion};
     }
 });
 </script>

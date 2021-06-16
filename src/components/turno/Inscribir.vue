@@ -213,7 +213,6 @@ export default {
             }
             axios.post(settings.API_URL + 'inscripciones/datosAsistente', body).then(response => {
                 resetForm();
-                console.log(response);
                 state.Identificacion = response.data[0].cedula;
                 state.Nombre = response.data[0].nombre;
                 state.Telefono = response.data[0].telefono;
