@@ -52,6 +52,14 @@
             </div>
 
             <div class="p-field p-col-12 p-lg-6 p-md-6 " style="text-align:left">
+                <label for="Covid3">¿Es la primera vez que asistes a una de nuestras reuniones? </label>
+                <Dropdown v-model="Nuevo" :options="optionsSiNo" optionLabel="label"
+                      optionValue="value" placeholder="Seleccione" id="Covid3"/>
+            </div>
+
+            <div class="p-field p-col-12 p-lg-6 p-md-6 " style="text-align:left"></div>
+
+            <div class="p-field p-col-12 p-lg-6 p-md-6 " style="text-align:left">
                 <label for="Covid1">¿Has estado en contacto estrecho (cercano), sin usar elementos de
                 protección, por más de 15 minutos con una persona con diagnóstico
                 confirmado de COVID-19 o has estado compartiendo el mismo lugar por
@@ -157,6 +165,7 @@ export default {
             { label: 'Sí', value: 1},
             { label: 'No', value: 0},
         ]);
+        const Nuevo = ref(0);
         const Covid1 = ref(0);
         const Covid2 = ref([]);
         const Covid3 = ref(0);
@@ -212,12 +221,14 @@ export default {
                 'cedula': cedula,
             }
             axios.post(settings.API_URL + 'inscripciones/datosAsistente', body).then(response => {
-                resetForm();
-                state.Identificacion = response.data[0].cedula;
-                state.Nombre = response.data[0].nombre;
-                state.Telefono = response.data[0].telefono;
-                state.Email = response.data[0].email;
-                state.Nacimiento = new Date(response.data[0].nacimiento);
+                if(response.data.length != 0){
+                    resetForm();
+                    state.Identificacion = response.data[0].cedula;
+                    state.Nombre = response.data[0].nombre;
+                    state.Telefono = response.data[0].telefono;
+                    state.Email = response.data[0].email;
+                    state.Nacimiento = new Date(response.data[0].nacimiento);
+                }
             }).catch(err => {
                 err;
                 console.log(err);
@@ -245,6 +256,7 @@ export default {
                 'covid2': Covid2.value,
                 'covid3': Covid3.value,
                 'covid4': Covid4.value,
+                'nuevo': Nuevo.value
             };
             axios.post(settings.API_URL + 'inscripciones/store', body).then(response => {
                 if(response.data.error == 1){
@@ -292,7 +304,7 @@ export default {
         return {
             Servicios, displayPolitica, openPolitica, closePolitica, Covid1, optionsSiNo, Covid2, Covid3, Covid4, state,
             v$, handleSubmit, submitted, showMessage, toggleDialog, resetForm, labelServicio, showErrorMessage, openErrorMessage,
-            closeErrorMessage, ErrorMessage, buscarDatos
+            closeErrorMessage, ErrorMessage, buscarDatos, Nuevo
         };
     },
 }
