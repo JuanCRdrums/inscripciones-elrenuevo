@@ -207,6 +207,11 @@ img.flag {
     width: 60%;
 }
 
+.p-fluid-admin {
+    margin: auto;
+    width: 90%;
+}
+
 
 .p-tabview p {
     line-height: 1.5;
