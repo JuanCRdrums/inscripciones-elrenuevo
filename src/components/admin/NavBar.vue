@@ -17,7 +17,12 @@ export default {
             {
                 label: 'Inscripciones',
                 to: '/admin/inscripciones'
-            }
+            },
+            {
+                label: 'Histórico de asistentes',
+                to: '/admin/asistentes'
+            },
+
         ]);
 
         return {items};
