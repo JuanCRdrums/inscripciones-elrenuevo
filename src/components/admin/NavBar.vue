@@ -22,6 +22,10 @@ export default {
                 label: 'Histórico de asistentes',
                 to: '/admin/asistentes'
             },
+            {
+                label: 'Salir',
+                to: '/admin/logout'
+            },
 
         ]);
 
