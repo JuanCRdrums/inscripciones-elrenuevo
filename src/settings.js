@@ -1,3 +1,3 @@
 export const settings = {
-    API_URL: "https://api.elrenuevopereira.com/api/",
+    API_URL: "http://api.elrenuevopereira.com/api/",
 };
