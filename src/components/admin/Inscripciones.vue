@@ -13,7 +13,7 @@
       paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
       :rows="10"
       stripedRows
-      :loading="loading"
+      :loading="loading" :resizableColumns="true"
     >
 
 
