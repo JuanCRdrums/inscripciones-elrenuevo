@@ -48,8 +48,13 @@ router.beforeEach((to, from, next) => {
     
   const publicPages = ['/admin','/','/consultar'];
   const authRequired = !publicPages.includes(to.path);
+  const isAdmin = to.path == '/admin';
   const api_key = localStorage.getItem('api_key');
-
+  console.log(isAdmin);
+  if(api_key && isAdmin){
+    next('/admin/inscripciones');
+  }
+  
   if(!api_key && authRequired){
     next('/admin');
   }
