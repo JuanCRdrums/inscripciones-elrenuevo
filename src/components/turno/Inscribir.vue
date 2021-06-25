@@ -228,6 +228,8 @@ export default {
                     state.Telefono = response.data[0].telefono;
                     state.Email = response.data[0].email;
                     state.Nacimiento = new Date(response.data[0].nacimiento);
+                    state.Nacimiento.setDate(new Date(response.data[0].nacimiento).getDate() + 1); //no sé por qué se restaba un día, entones toca sumarle 1
+                    console.log(response.data);
                 }
             }).catch(err => {
                 err;
