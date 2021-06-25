@@ -37,9 +37,10 @@
                 <span class="p-float-label">
                     <Calendar id="Nacimiento" dateFormat="dd/mm/yy" :showIcon="true" v-model="v$.Nacimiento.$model"
                               monthNavigator="true" :yearNavigator="true" yearRange="1900:2021" />
-                    <label for="Nacimiento" :class="{'p-error':v$.Nacimiento.$invalid && submitted}">Fecha de nacimiento</label>
+                    <label for="Nacimiento" :class="{'p-error':v$.Nacimiento.$invalid && submitted}">Fecha de nacimiento </label>
                 </span>
-                <small v-if="(v$.Nacimiento.$invalid && submitted) || v$.Nacimiento.$pending.$response" class="p-error">Por favor ingresa tu fecha de nacimiento</small>
+                <small v-if="(v$.Nacimiento.$invalid && submitted) || v$.Nacimiento.$pending.$response" class="p-error">Por favor ingresa tu fecha de nacimiento. </small>
+                <small v-if="(!v$.Nacimiento.$invalid && !submitted) || !v$.Nacimiento.$pending.$response">No olvides verificar el año</small>
             </div>
 
             <div class="p-field p-col-12 p-lg-6 p-md-6 ">
