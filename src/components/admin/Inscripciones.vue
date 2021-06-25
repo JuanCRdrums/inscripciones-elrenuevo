@@ -48,7 +48,7 @@
       <column header="Horario" sortable field="servicio">
         <template #body="slotProps">
           <div v-if="slotProps.data.servicio == 1">8:15 am</div>
-          <div v-if="slotProps.data.servicio == 2">10:15 am</div>
+          <div v-if="slotProps.data.servicio == 2">10:30 am</div>
         </template>
       </column>
 
