@@ -54,7 +54,8 @@
 
       <column header="Asistencia" sortable field="asistencia">
         <template #body="slotProps">
-          <ToggleButton v-model="slotProps.data.asistencia" onIcon="pi pi-check" offIcon="pi pi-times" @change="updateAsistencia(slotProps.data.id, slotProps.data.asistencia)"/>
+          <ToggleButton v-model="slotProps.data.asistencia" onIcon="pi pi-check" offIcon="pi pi-times" @change="updateAsistencia(slotProps.data.id, slotProps.data.asistencia)"
+          :style="getStyle(slotProps.data.asistencia)" v-tooltip.top="'Modificar asistencia'"/>
         </template>
       </column>
 
@@ -111,11 +112,21 @@ export default {
             });
     };
 
+    const getStyle = (asistencia) => {
+
+      if(asistencia){
+        return "background-color: #4CAF50;";
+      }
+      else {
+        return "background-color: #f44336;"
+      }
+    }
+
     onMounted(() => {
        getInscripciones()
     });
 
-    return {Inscripciones, loading, Fecha, filters1, clearFilter1, getInscripciones, updateAsistencia};
+    return {Inscripciones, loading, Fecha, filters1, clearFilter1, getInscripciones, updateAsistencia, getStyle};
 
   }
 
