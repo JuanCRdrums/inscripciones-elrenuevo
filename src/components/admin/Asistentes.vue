@@ -32,6 +32,11 @@
       <column header="Número de identificacion" field="cedula" sortable></column>
       <column header="Nombre" field="nombre" sortable></column>
       <column header="Fecha de nacimiento" field="nacimiento" sortable></column>
+      <column header="Edad" sortable field="edad">
+        <template #body="slotProps">
+          {{ slotProps.data.edad }} años
+        </template>
+      </column>
       <column header="Correo electrónico" field="email" sortable></column>
       <column header="Teléfono de contacto" field="telefono" sortable></column>
 

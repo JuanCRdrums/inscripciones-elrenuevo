@@ -45,12 +45,21 @@
           <div v-else>Adulto</div>
         </template>
       </column>
+
+      <column header="Edad" sortable field="infoasistente.edad">
+        <template #body="slotProps">
+          {{ slotProps.data.infoasistente.edad }} años
+        </template>
+      </column>
+
       <column header="Horario" sortable field="servicio">
         <template #body="slotProps">
           <div v-if="slotProps.data.servicio == 1">8:15 am</div>
           <div v-if="slotProps.data.servicio == 2">10:30 am</div>
         </template>
       </column>
+
+      
 
       <column header="Asistencia" sortable field="asistencia">
         <template #body="slotProps">
