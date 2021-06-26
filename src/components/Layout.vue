@@ -1,6 +1,6 @@
 <template>
 <div >
-    <div v-if="!isAdminRoute && !isLoginRoute" class="p-fluid">
+    <div v-if="!isAdminRoute && !isLoginRoute && inactivo == 0" class="p-fluid">
       <br/>
       <Avatar image="https://scontent.fpei1-1.fna.fbcdn.net/v/t31.18172-8/16836107_328292424233549_1527868727196000006_o.jpg?_nc_cat=105&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=8wbATdjq-7EAX8GwaCw&_nc_ht=scontent.fpei1-1.fna&oh=e785be459f4d472c13d46581a85c822e&oe=60DB7B5F
       " shape="circle" size="xlarge" />
@@ -12,6 +12,14 @@
           <router-link to="/consultar">Consultar o cancelar mi inscripción</router-link>
       </div>
       <router-view/>
+    </div>
+
+    <div v-if="!isAdminRoute && !isLoginRoute && inactivo == 1" class="p-fluid">
+      <Avatar image="https://scontent.fpei1-1.fna.fbcdn.net/v/t31.18172-8/16836107_328292424233549_1527868727196000006_o.jpg?_nc_cat=105&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=8wbATdjq-7EAX8GwaCw&_nc_ht=scontent.fpei1-1.fna&oh=e785be459f4d472c13d46581a85c822e&oe=60DB7B5F
+      " shape="circle" size="xlarge" />
+      <h5>¡Hola!</h5>
+
+      <p>Bienvenido a la inscripción a nuestros servicios presenciales del <strong>{{Fecha}}</strong>. En este momento se encuentran desactivadas las inscripciones.</p>
     </div>
 
 
@@ -29,7 +37,7 @@
 </template>
 
 <script>
-import {  onMounted, provide, ref, watch } from 'vue';
+import {  onBeforeMount, onMounted, provide, ref, watch } from 'vue';
 import axios from "axios";
 import {settings} from "@/settings";
 import { useRoute, useRouter } from 'vue-router';
@@ -61,6 +69,20 @@ export default {
             });
     });
 
+
+    const inactivo = ref(0);
+
+
+    onBeforeMount(() => {
+      axios.get(settings.API_URL + 'opciones/inactivo').then(response => {
+                inactivo.value = response.data;
+            }).catch(err => {
+                err;
+                console.log(err);
+            });
+
+    });
+
     watch(
       () => Route.name,
       async () => {
@@ -68,7 +90,7 @@ export default {
         isLoginRoute.value = Route.name.includes("Login");
       }
     )
-    return {Fecha, Route, Router, isAdminRoute, isLoginRoute};
+    return {Fecha, Route, Router, isAdminRoute, isLoginRoute, inactivo};
   }
 }
 </script>

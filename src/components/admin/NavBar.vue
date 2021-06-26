@@ -23,6 +23,10 @@ export default {
                 to: '/admin/asistentes'
             },
             {
+                label: 'Activar/Desactivar inscripciones',
+                to: '/admin/activardesactivar'
+            },
+            {
                 label: 'Salir',
                 to: '/admin/logout'
             },

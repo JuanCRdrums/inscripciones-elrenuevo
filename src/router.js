@@ -3,6 +3,7 @@ import Inscribir from "./components/turno/Inscribir.vue";
 import ConsultarCancelar from "./components/turno/ConsultarCancelar.vue"
 import Inscripciones from "./components/admin/Inscripciones.vue"
 import Asistentes from "./components/admin/Asistentes.vue"
+import ActivarDesactivar from "./components/admin/ActivarDesactivar.vue"
 import Login from "./components/auth/Login.vue"
 import Logout from "./components/auth/Logout.vue"
 
@@ -26,6 +27,11 @@ const routes = [
     path:'/admin/asistentes',
     component: Asistentes,
     name: 'AdminAsistentes'
+  },
+  {
+    path:'/admin/activardesactivar',
+    component: ActivarDesactivar,
+    name: 'AdminActivarDesactivar'
   },
   {
     path:'/admin',
