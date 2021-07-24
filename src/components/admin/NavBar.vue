@@ -23,6 +23,10 @@ export default {
                 to: '/admin/asistentes'
             },
             {
+                label: 'Datos por fecha',
+                to: '/admin/datosFecha'
+            },
+            {
                 label: 'Activar/Desactivar inscripciones',
                 to: '/admin/activardesactivar'
             },
