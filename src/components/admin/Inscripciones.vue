@@ -1,6 +1,13 @@
 <template>
   <div>
     <h2>Lista de inscritos {{Fecha}}</h2>
+    <div class="p-grid">
+      <div class="p-field p-col-12 p-lg-6">
+          <label for="Servicio">Servicio</label>
+          <Dropdown v-model="Servicio" :options="Servicios" optionLabel="servicio"
+                    optionValue="codigo" id="Servicio" @change="getInscripciones()"/>
+      </div>
+    </div>
     <DataTable
       :value="Inscripciones"
       responsiveLayout="stack"
@@ -96,7 +103,11 @@ export default {
     };
 
     const getInscripciones = () => {
-      axios.get(settings.API_URL + 'inscripciones').then(response => {
+      loading.value = true;
+      let body = {
+        'servicio': Servicio.value,
+      }
+      axios.post(settings.API_URL + 'inscripciones', body).then(response => {
                 Inscripciones.value = response.data;
                 loading.value = false;
             }).catch(err => {
@@ -135,7 +146,13 @@ export default {
        getInscripciones()
     });
 
-    return {Inscripciones, loading, Fecha, filters1, clearFilter1, getInscripciones, updateAsistencia, getStyle};
+    const Servicio = ref(0);
+    const Servicios = ref([
+            {servicio: '8:15 am', codigo: 1},
+            {servicio: '10:30 am', codigo: 2},
+        ]);
+
+    return {Inscripciones, loading, Fecha, filters1, clearFilter1, getInscripciones, updateAsistencia, getStyle, Servicio, Servicios};
 
   }
 
