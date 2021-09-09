@@ -181,7 +181,7 @@ export default {
         provide('closePolitica', closePolitica);
 
         const Servicios = ref([
-            {servicio: '8:15 am', codigo: 1},
+            {servicio: '8:30 am', codigo: 1},
             {servicio: '10:30 am', codigo: 2},
         ]);
 

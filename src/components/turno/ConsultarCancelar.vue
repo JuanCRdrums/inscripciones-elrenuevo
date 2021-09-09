@@ -85,7 +85,7 @@ export default defineComponent( {
         const toast = useToast();
 
         const Servicios = ref([
-            '8:15 am', '10:30 am'
+            '8:30 am', '10:30 am'
         ]);
         const Servicio = ref('');
 

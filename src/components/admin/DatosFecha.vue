@@ -71,7 +71,7 @@
 
       <column header="Horario" sortable field="servicio">
         <template #body="slotProps">
-          <div v-if="slotProps.data.servicio == 1">8:15 am</div>
+          <div v-if="slotProps.data.servicio == 1">8:30 am</div>
           <div v-if="slotProps.data.servicio == 2">10:30 am</div>
         </template>
       </column>
@@ -103,7 +103,7 @@ export default {
     const Fecha = ref(null);
     const Servicio = ref(0);
     const Servicios = ref([
-            {servicio: '8:15 am', codigo: 1},
+            {servicio: '8:30 am', codigo: 1},
             {servicio: '10:30 am', codigo: 2},
         ]);
     
