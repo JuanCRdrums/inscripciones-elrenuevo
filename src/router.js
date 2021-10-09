@@ -70,7 +70,7 @@ export const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     
-  const publicPages = ['/admin','/','/consultar'];
+  const publicPages = ['/admin','/','/consultar','/servicio'];
   const authRequired = !publicPages.includes(to.path);
   const isAdmin = to.path == '/admin';
   const api_key = localStorage.getItem('api_key');
