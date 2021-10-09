@@ -31,6 +31,10 @@ export default {
                 to: '/admin/activardesactivar'
             },
             {
+                label: 'Convocatoria de servicio',
+                to: '/admin/servicio'
+            },
+            {
                 label: 'Salir',
                 to: '/admin/logout'
             },

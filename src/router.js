@@ -7,6 +7,8 @@ import Asistentes from "./components/admin/Asistentes.vue"
 import ActivarDesactivar from "./components/admin/ActivarDesactivar.vue"
 import Login from "./components/auth/Login.vue"
 import Logout from "./components/auth/Logout.vue"
+import Servicio from "./components/servicio/Servicio.vue" 
+import Convocatoria from "./components/admin/Convocatoria.vue" 
 
 const routes = [
   {
@@ -49,6 +51,16 @@ const routes = [
     component: Logout,
     name: 'Logout'
   },
+  {
+    path:'/servicio',
+    component: Servicio,
+    name: 'Servicio'
+  },
+  {
+    path:'/admin/servicio',
+    component: Convocatoria,
+    name: 'AdminConvocatoria'
+  },
 ];
 
 export const router = createRouter({
@@ -62,7 +74,6 @@ router.beforeEach((to, from, next) => {
   const authRequired = !publicPages.includes(to.path);
   const isAdmin = to.path == '/admin';
   const api_key = localStorage.getItem('api_key');
-  console.log(isAdmin);
   if(api_key && isAdmin){
     next('/admin/inscripciones');
   }

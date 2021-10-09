@@ -28,7 +28,8 @@ import 'primevue/resources/themes/bootstrap4-light-blue/theme.css';
 import 'primevue/resources/primevue.min.css';     
 import 'primeicons/primeicons.css';
 import './custom.css';
-import Tooltip from 'primevue/tooltip';               
+import Tooltip from 'primevue/tooltip';
+import Textarea from 'primevue/textarea';               
 
 const app = createApp(App, { ripple: true });
 
@@ -108,6 +109,7 @@ app.component('Menubar', Menubar);
 app.component('DataTable', DataTable);
 app.component('Column', Column);
 app.component('ToggleButton', ToggleButton);
+app.component('Textarea', Textarea);
 app.directive('tooltip', Tooltip);
 
 app.mount('#app');

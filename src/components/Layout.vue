@@ -1,8 +1,8 @@
 <template>
 <div >
-    <div v-if="!isAdminRoute && !isLoginRoute && inactivo == 0" class="p-fluid">
+    <div v-if="!isAdminRoute && !isLoginRoute && !isServicioRoute && inactivo == 0" class="p-fluid">
       <br/>
-      <Avatar image="https://inscripciones.elrenuevopereira.com/logo.jpg" shape="circle" size="xlarge" />
+      <Avatar image="logo.png" shape="circle" size="xlarge" />
       <h5>¡Hola!</h5>
 
       <p>Bienvenido a la inscripción a nuestros servicios presenciales del <strong>{{Fecha}}</strong>. Selecciona lo que deseas hacer:</p>
@@ -13,15 +13,15 @@
       <router-view/>
     </div>
 
-    <div v-if="!isAdminRoute && !isLoginRoute && inactivo == 1" class="p-fluid">
-      <Avatar image="https://inscripciones.elrenuevopereira.com/logo.jpg" shape="circle" size="xlarge" />
+    <div v-if="!isAdminRoute && !isLoginRoute && !isServicioRoute && inactivo == 1" class="p-fluid">
+      <Avatar image="logo.png" shape="circle" size="xlarge" />
       <h5>¡Hola!</h5>
 
       <p>Bienvenido a la inscripción a nuestros servicios presenciales del <strong>{{Fecha}}</strong>. En este momento se encuentran desactivadas las inscripciones.</p>
     </div>
 
 
-    <div v-if="isAdminRoute && !isLoginRoute" class="p-fluid-admin">
+    <div v-if="isAdminRoute && !isLoginRoute && !isServicioRoute" class="p-fluid-admin">
       <NavBar/>
       <router-view/>
     </div>
@@ -29,6 +29,31 @@
     <div v-if="isLoginRoute" class="p-fluid-admin">
       <router-view/>
     </div>
+
+    <div v-if="isServicioRoute" class="p-fluid">
+      <div class="p-fluid">
+        <Avatar image="logo.png" shape="circle" size="xlarge" />
+      </div>
+      
+      <br><br><br><br>
+      <div class="p-grid">
+        <div class="p-col-12 p-md-6 p-lg-6">
+          <img src="foto-servicio.jpg" alt="" width="259.8">
+        </div>
+        <div class="p-col-12 p-md-6 p-lg-6">
+          <br><br><br><h4>¡Hola!</h4><br><br>
+          <p>
+            Gracias por disponer tu corazón y tu tiempo para servir a Dios y a quienes él puso a tu alrededor. 
+          </p><br><br>
+          <p>
+            Somos la iglesia y estamos felices de seguir construyendo juntos el plan de Dios para que su amor se siga anunciando en cada rincón del mundo y por todas las generaciones.
+          </p>
+        </div>
+      </div>
+      <br><br>
+      <router-view/>
+    </div>
+
 
     
 </div>
@@ -58,6 +83,8 @@ export default {
 
     const isLoginRoute = ref(false);
 
+    const isServicioRoute = ref(false);
+
     onMounted(() => {
       axios.get(settings.API_URL + 'inscripciones/fechaActiva').then(response => {
                 Fecha.value = response.data;
@@ -86,9 +113,10 @@ export default {
       async () => {
         isAdminRoute.value = Route.name.includes("Admin");
         isLoginRoute.value = Route.name.includes("Login");
+        isServicioRoute.value = Route.name.includes("Servicio");
       }
     )
-    return {Fecha, Route, Router, isAdminRoute, isLoginRoute, inactivo};
+    return {Fecha, Route, Router, isAdminRoute, isLoginRoute, inactivo, isServicioRoute};
   }
 }
 </script>
