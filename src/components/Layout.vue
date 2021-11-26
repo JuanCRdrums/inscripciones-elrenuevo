@@ -1,6 +1,6 @@
 <template>
 <div >
-    <div v-if="!isAdminRoute && !isLoginRoute && !isServicioRoute && inactivo == 0" class="p-fluid">
+    <div v-if="!isAdminRoute && !isLoginRoute && !isServicioRoute && !isAniversarioRoute && inactivo == 0" class="p-fluid">
       <br/>
       <Avatar image="logo.png" shape="circle" size="xlarge" />
       <h5>¡Hola!</h5>
@@ -10,6 +10,15 @@
           <router-link to="/">Inscribirme</router-link> | 
           <router-link to="/consultar">Consultar o cancelar mi inscripción</router-link>
       </div>
+      <router-view/>
+    </div>
+
+    <div v-if="isAniversarioRoute" class="p-fluid">
+      <br/>
+      <Avatar image="logo.png" shape="circle" size="xlarge" />
+      <h5>¡Hola!</h5>
+
+      <p>Bienvenido a la inscripción para los servicios de nuestro aniversario. Por favor proporciona los siguientes datos.</p>
       <router-view/>
     </div>
 
@@ -85,6 +94,8 @@ export default {
 
     const isServicioRoute = ref(false);
 
+    const isAniversarioRoute = ref(false);
+
     onMounted(() => {
       axios.get(settings.API_URL + 'inscripciones/fechaActiva').then(response => {
                 Fecha.value = response.data;
@@ -114,9 +125,10 @@ export default {
         isAdminRoute.value = Route.name.includes("Admin");
         isLoginRoute.value = Route.name.includes("Login");
         isServicioRoute.value = Route.name.includes("Servicio");
+        isAniversarioRoute.value = Route.name.includes("Aniversario");
       }
     )
-    return {Fecha, Route, Router, isAdminRoute, isLoginRoute, inactivo, isServicioRoute};
+    return {Fecha, Route, Router, isAdminRoute, isLoginRoute, inactivo, isServicioRoute, isAniversarioRoute};
   }
 }
 </script>

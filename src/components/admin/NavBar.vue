@@ -15,6 +15,10 @@ export default {
     setup(){
         const items= ref([
             {
+                label: 'Aniversario',
+                to: '/admin/aniversario'
+            },
+            {
                 label: 'Inscripciones',
                 to: '/admin/inscripciones'
             },

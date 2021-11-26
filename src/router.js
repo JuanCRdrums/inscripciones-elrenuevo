@@ -9,6 +9,8 @@ import Login from "./components/auth/Login.vue"
 import Logout from "./components/auth/Logout.vue"
 import Servicio from "./components/servicio/Servicio.vue" 
 import Convocatoria from "./components/admin/Convocatoria.vue" 
+import Aniversario from "./components/turno/Aniversario.vue"
+import AdminAniversario from "./components/admin/AdminAniversario.vue"
 
 const routes = [
   {
@@ -61,6 +63,16 @@ const routes = [
     component: Convocatoria,
     name: 'AdminConvocatoria'
   },
+  {
+    path:'/aniversario',
+    component: Aniversario,
+    name: 'Aniversario'
+  },
+  {
+    path:'/admin/aniversario',
+    component: AdminAniversario,
+    name: 'AdminAni'
+  },
 ];
 
 export const router = createRouter({
@@ -70,12 +82,12 @@ export const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     
-  const publicPages = ['/admin','/','/consultar','/servicio'];
+  const publicPages = ['/admin','/','/consultar','/servicio', '/aniversario'];
   const authRequired = !publicPages.includes(to.path);
   const isAdmin = to.path == '/admin';
   const api_key = localStorage.getItem('api_key');
   if(api_key && isAdmin){
-    next('/admin/inscripciones');
+    next('/admin/aniversario');
   }
   
   if(!api_key && authRequired){
