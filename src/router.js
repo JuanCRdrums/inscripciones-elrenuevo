@@ -87,7 +87,7 @@ router.beforeEach((to, from, next) => {
   const isAdmin = to.path == '/admin';
   const api_key = localStorage.getItem('api_key');
   if(api_key && isAdmin){
-    next('/admin/aniversario');
+    next('/admin/inscripciones');
   }
   
   if(!api_key && authRequired){
