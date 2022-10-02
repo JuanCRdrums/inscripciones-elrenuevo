@@ -15,11 +15,7 @@ export default {
     setup(){
         const items= ref([
             {
-                label: 'Aniversario',
-                to: '/admin/aniversario'
-            },
-            {
-                label: 'Inscripciones',
+                label: 'Santiago Benavides',
                 to: '/admin/inscripciones'
             },
             {
@@ -33,10 +29,6 @@ export default {
             {
                 label: 'Activar/Desactivar inscripciones',
                 to: '/admin/activardesactivar'
-            },
-            {
-                label: 'Convocatoria de servicio',
-                to: '/admin/servicio'
             },
             {
                 label: 'Salir',

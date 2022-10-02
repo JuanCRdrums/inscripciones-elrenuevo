@@ -25,76 +25,24 @@
                 <small v-if="(v$.Telefono.$invalid && submitted) || v$.Telefono.$pending.$response" class="p-error">Por favor ingresa tu número de teléfono</small>
             </div>
 
-            <div class="p-field p-col-12 p-lg-6 p-md-6 ">
+
+            <div class="p-field p-col-12 p-lg-6 p-md-6 " style="text-align:left">
                 <span class="p-float-label">
-                    <InputText id="Email" type="text" v-model="v$.Email.$model"></InputText>
-                    <label for="Email" :class="{'p-error':v$.Email.$invalid && submitted}">Correo electrónico</label>
+                    
+                    <Dropdown v-model="Nino" :options="optionsNino" optionLabel="label"
+                      optionValue="value" id="Nino"/>
+                    <label for="Nino">Te consideras: </label>
                 </span>
-                <small v-if="(v$.Email.$invalid && submitted) || v$.Email.$pending.$response" class="p-error">Por favor ingresa un correo electrónico válido</small>
             </div>
 
-            <div class="p-field p-col-12 p-lg-6 p-md-6 ">
+            <div class="p-field p-col-12 p-lg-6 p-md-6 " style="text-align:left">
                 <span class="p-float-label">
-                    <Calendar id="Nacimiento" dateFormat="dd/mm/yy" :showIcon="true" v-model="v$.Nacimiento.$model"
-                              monthNavigator="true" :yearNavigator="true" yearRange="1900:2021" />
-                    <label for="Nacimiento" :class="{'p-error':v$.Nacimiento.$invalid && submitted}">Fecha de nacimiento </label>
+                    <Textarea id="Observaciones" type="text" v-model="Observaciones"></Textarea>
+                    <label for="Observaciones">¿Tienes alguna observación extra que debamos saber?</label>
                 </span>
-                <small v-if="(v$.Nacimiento.$invalid && submitted) || v$.Nacimiento.$pending.$response" class="p-error">Por favor ingresa tu fecha de nacimiento. </small>
-                <small v-if="(!v$.Nacimiento.$invalid && !submitted) || !v$.Nacimiento.$pending.$response">No olvides verificar el año</small>
             </div>
 
-            <div class="p-field p-col-12 p-lg-6 p-md-6 ">
-                <span class="p-float-label">
-                     <Dropdown v-model="v$.Servicio.$model" :options="Servicios" optionLabel="servicio"
-                      optionValue="codigo" id="Servicio"/>
-                      <label for="Servicio" :class="{'p-error':v$.Servicio.$invalid && submitted}">Horario</label>
-                </span>
-                <small v-if="(v$.Servicio.$invalid && submitted) || v$.Servicio.$pending.$response" class="p-error">Por favor selecciona el horario al que quieres asistir</small>
-            </div>
-
-            <div class="p-field p-col-12 p-lg-6 p-md-6 " style="text-align:left">
-                <label for="Covid3">¿Es la primera vez que asistes a una de nuestras reuniones? </label>
-                <Dropdown v-model="Nuevo" :options="optionsSiNo" optionLabel="label"
-                      optionValue="value" placeholder="Seleccione" id="Covid3"/>
-            </div>
-
-            <div class="p-field p-col-12 p-lg-6 p-md-6 " style="text-align:left"></div>
-
-            <div class="p-field p-col-12 p-lg-6 p-md-6 " style="text-align:left">
-                <label for="Covid1">¿Has estado en contacto estrecho (cercano), sin usar elementos de
-                protección, por más de 15 minutos con una persona con diagnóstico
-                confirmado de COVID-19 o has estado compartiendo el mismo lugar por
-                más de 120 minutos con una persona con diagnóstico confirmado de
-                COVID-19?</label>
-                <Dropdown v-model="Covid1" :options="optionsSiNo" optionLabel="label"
-                      optionValue="value" placeholder="Seleccione" id="Covid2"/>
-            </div>
-
-            <div class="p-field p-col-12 p-lg-6 p-md-6 " style="text-align:left">
-                <label>¿Has presentado alguno de estos síntomas en los últimos 14 días?
-                    (Marca solo los que hayas presentado)</label><br>
-                <Checkbox value="1" v-model="Covid2" /> Fiebre de 38°C o más <br>
-                <Checkbox value="2" v-model="Covid2" /> Dificultad para respirar <br>
-                <Checkbox value="3" v-model="Covid2" /> Dolor de garganta <br>
-                <Checkbox value="4" v-model="Covid2" /> Tos <br>
-                <Checkbox value="5" v-model="Covid2" /> Fatiga o decaimiento <br>
-                <Checkbox value="6" v-model="Covid2" /> Disminución del sentido del gusto <br>
-                <Checkbox value="7" v-model="Covid2" /> Disminución del sentido del Olfato <br>
-            </div>
-
-            <div class="p-field p-col-12 p-lg-6 p-md-6 " style="text-align:left">
-                <label for="Covid3">¿Has estado fuera del País o con personas procedentes del 
-                    extranjero en los últimos 14 días? </label>
-                <Dropdown v-model="Covid3" :options="optionsSiNo" optionLabel="label"
-                      optionValue="value" placeholder="Seleccione" id="Covid3"/>
-            </div>
-
-            <div class="p-field p-col-12 p-lg-6 p-md-6 " style="text-align:left">
-                <label for="Covid4">¿Actualmente te encuentras en aislamiento y/o en espera del resultado de
-                    una prueba de diagnóstico para Covid-19 (Diferente a Tamización)?</label>
-                <Dropdown v-model="Covid4" :options="optionsSiNo" optionLabel="label"
-                      optionValue="value" placeholder="Seleccione" id="Covid3"/>
-            </div>
+            
 
             <div class="p-field-checkbox p-col-12">
                 <Checkbox v-model="v$.Politica.$model" :binary="true" id="Politica" />
@@ -112,8 +60,7 @@
                 <i class="pi pi-check-circle" :style="{fontSize: '5rem', color: 'var(--green-500)' }"></i>
                 <h5>¡Registro exitoso!</h5>
                 <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
-                    Gracias por inscribirte, {{ state.Nombre }}. Has quedado registrado/a para el servicio de las {{ labelServicio(state.Servicio) }}.
-                    Recuerda llegar 15 minutos antes de la hora de inicio para realizar el registro y el proceso de desinfección.
+                    Gracias por inscribirte, {{ state.Nombre }}.
                     Te pedimos que, en caso de no poder asistir, canceles tu inscripción como mínimo con 2 horas de anticipación.
                 </p>
             </div>
@@ -146,7 +93,7 @@
 
 <script>
 import { provide, reactive, ref } from 'vue';
-import { email, required } from "@vuelidate/validators";
+import { required } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 import PoliticaDatos from './PoliticaDatos';
 import axios from "axios";
@@ -166,11 +113,12 @@ export default {
             { label: 'Sí', value: 1},
             { label: 'No', value: 0},
         ]);
-        const Nuevo = ref(0);
-        const Covid1 = ref(0);
-        const Covid2 = ref([]);
-        const Covid3 = ref(0);
-        const Covid4 = ref(0);
+        const optionsNino = ref([
+            { label: 'Adulto', value: 2},
+            { label: 'Niño', value: 1},
+        ]);
+        const Nino = ref(2);
+        const Observaciones = ref("");
         const openPolitica = () => {
             displayPolitica.value = true;
         };
@@ -180,18 +128,11 @@ export default {
         provide('displayPolitica', displayPolitica);
         provide('closePolitica', closePolitica);
 
-        const Servicios = ref([
-            {servicio: '8:30 am', codigo: 1},
-            {servicio: '10:30 am', codigo: 2},
-        ]);
 
         const state = reactive({
             Identificacion: '',
             Nombre: '',
             Telefono: '',
-            Email: '',
-            Nacimiento: null,
-            Servicio: null,
             Politica: null,
         });
 
@@ -199,10 +140,7 @@ export default {
             Identificacion: {required},
             Nombre: {required},
             Telefono: {required},
-            Email: {required, email},
-            Nacimiento: {required},
-            Servicio: {required},
-            Politica: {required},
+            Politica: {required}
         };
 
         const submitted = ref(false);
@@ -227,9 +165,6 @@ export default {
                     state.Identificacion = response.data[0].cedula;
                     state.Nombre = response.data[0].nombre;
                     state.Telefono = response.data[0].telefono;
-                    state.Email = response.data[0].email;
-                    state.Nacimiento = new Date(response.data[0].nacimiento);
-                    state.Nacimiento.setDate(new Date(response.data[0].nacimiento).getDate() + 1); //no sé por qué se restaba un día, entones toca sumarle 1
                     console.log(response.data);
                 }
             }).catch(err => {
@@ -252,14 +187,8 @@ export default {
                 'cedula': state.Identificacion,
                 'nombre': state.Nombre,
                 'telefono': state.Telefono,
-                'email': state.Email,
-                'nacimiento': state.Nacimiento,
-                'servicio': state.Servicio,
-                'covid1': Covid1.value,
-                'covid2': Covid2.value,
-                'covid3': Covid3.value,
-                'covid4': Covid4.value,
-                'nuevo': Nuevo.value
+                'nino': Nino.value == 2 ? 0 : Nino.value,
+                'observaciones': Observaciones.value
             };
             axios.post(settings.API_URL + 'inscripciones/store', body).then(response => {
                 if(response.data.error == 1){
@@ -295,19 +224,11 @@ export default {
 
         const v$ = useVuelidate(rules,state);
 
-        const labelServicio = (code) => {
-            for(var i = 0; i < Servicios.value.length; i++)
-            {
-                if(Servicios.value[i].codigo === code){
-                    return Servicios.value[i].servicio;
-                }
-            }
-        };
 
         return {
-            Servicios, displayPolitica, openPolitica, closePolitica, Covid1, optionsSiNo, Covid2, Covid3, Covid4, state,
-            v$, handleSubmit, submitted, showMessage, toggleDialog, resetForm, labelServicio, showErrorMessage, openErrorMessage,
-            closeErrorMessage, ErrorMessage, buscarDatos, Nuevo
+            displayPolitica, openPolitica, closePolitica, optionsSiNo, state,
+            v$, handleSubmit, submitted, showMessage, toggleDialog, resetForm, showErrorMessage, openErrorMessage,
+            closeErrorMessage, ErrorMessage, buscarDatos, optionsNino, Nino, Observaciones
         };
     },
 }

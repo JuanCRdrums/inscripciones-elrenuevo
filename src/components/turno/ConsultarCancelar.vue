@@ -17,8 +17,7 @@
         <br>
         <div v-if="displayInfo">
             <p>
-                {{Nombre}}, tu inscripción está registrada para el servicio de las {{ Servicio }}. Recuerda llegar 15 minutos antes de la hora de 
-                inicio para realizar el registro y el proceso de desinfección.
+                {{Nombre}}, tienes una inscripción registrada.
                 Te pedimos que, en caso de no poder asistir, canceles tu inscripción como mínimo con 2 horas de anticipación. 
             </p>
             <div class="p-grid">
@@ -30,7 +29,7 @@
 
         <div v-if="displayNoInfo">
             <p>
-                No tienes una inscripción registrada para este domingo. Nos encantaría verte, así que te invitamos a que te inscribas.
+                No tienes una inscripción registrada. Nos encantaría verte, así que te invitamos a que te inscribas.
             </p>
         </div>
 

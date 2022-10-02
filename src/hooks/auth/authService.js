@@ -16,7 +16,7 @@ export default class authService {
         axios.post(settings.API_URL + 'login', body).then(response => {
             if(response.data.error != 1){
                 localStorage.setItem('api_key', response.data.api_key);
-                router.push("/admin/aniversario");
+                router.push("/admin/inscripciones");
                 return 1;
             }
             else

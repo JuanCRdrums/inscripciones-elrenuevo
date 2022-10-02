@@ -5,7 +5,7 @@
       <Avatar image="logo.png" shape="circle" size="xlarge" />
       <h5>¡Hola!</h5>
 
-      <p>Bienvenido a la inscripción a nuestros servicios presenciales del <strong>{{Fecha}}</strong>. Selecciona lo que deseas hacer:</p>
+      <p>Bienvenido a la inscripción para el concierto de cierre de nuestro Aniversario <strong>({{Fecha}})</strong>. Selecciona lo que deseas hacer:</p>
       <div id="nav">
           <router-link to="/">Inscribirme</router-link> | 
           <router-link to="/consultar">Consultar o cancelar mi inscripción</router-link>
@@ -26,7 +26,7 @@
       <Avatar image="logo.png" shape="circle" size="xlarge" />
       <h5>¡Hola!</h5>
 
-      <p>Bienvenido a la inscripción a nuestros servicios presenciales del <strong>{{Fecha}}</strong>. En este momento se encuentran desactivadas las inscripciones.</p>
+      <p>Bienvenido a la inscripción para el concierto de cierre de nuestro Aniversario <strong>({{Fecha}})</strong>. En este momento se encuentran desactivadas las inscripciones.</p>
     </div>
 
 

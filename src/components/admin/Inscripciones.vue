@@ -1,13 +1,6 @@
 <template>
   <div>
     <h2>Lista de inscritos {{Fecha}}</h2>
-    <div class="p-grid">
-      <div class="p-field p-col-12 p-lg-6">
-          <label for="Servicio">Servicio</label>
-          <Dropdown v-model="Servicio" :options="Servicios" optionLabel="servicio"
-                    optionValue="codigo" id="Servicio" @change="getInscripciones()"/>
-      </div>
-    </div>
     <DataTable
       :value="Inscripciones"
       responsiveLayout="stack"
@@ -38,34 +31,14 @@
 
       <column header="Número de identificacion" field="cedula" sortable></column>
       <column header="Nombre" field="infoasistente.nombre" sortable></column>
-      <column header="Correo electrónico" field="infoasistente.email" sortable></column>
       <column header="Teléfono de contacto" field="infoasistente.telefono" sortable></column>
-      <column header="¿Nuevo?" field="nuevo" sortable>
-        <template #body="slotProps">
-          <div v-if="slotProps.data.nuevo == 1">Sí</div>
-          <div v-else>No</div>
-        </template>
-      </column>
       <column header="Tipo de inscripción" sortable field="nino">
         <template #body="slotProps">
           <div v-if="slotProps.data.nino == 1">Niño</div>
           <div v-else>Adulto</div>
         </template>
       </column>
-
-      <column header="Edad" sortable field="infoasistente.edad">
-        <template #body="slotProps">
-          {{ slotProps.data.infoasistente.edad }} años
-        </template>
-      </column>
-
-      <column header="Horario" sortable field="servicio">
-        <template #body="slotProps">
-          <div v-if="slotProps.data.servicio == 1">8:30 am</div>
-          <div v-if="slotProps.data.servicio == 2">10:30 am</div>
-        </template>
-      </column>
-
+      <column header="Observaciones" field="observaciones" sortable></column>
       
 
       <column header="Asistencia" sortable field="asistencia">
